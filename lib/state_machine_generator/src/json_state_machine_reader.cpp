@@ -18,7 +18,7 @@ bool JsonStateMachineReader::OpenFile(const std::string& file_name) noexcept
     return false;
 }
 
-StateManager::Ptr JsonStateMachineReader::GetStateManager() noexcept
+StateManager::Ptr JsonStateMachineReader::GetStateManager() const noexcept
 {
     return nullptr;
 }

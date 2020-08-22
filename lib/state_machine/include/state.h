@@ -56,7 +56,10 @@ public:
 class FinalState final : public State
 {
 public: 
-    FinalState(const std::string& intent) noexcept;
+    FinalState(const std::string& state_str) noexcept;
+    void SetFinalIntent(const std::string& final_intent);
+private:
+    std::string final_intent_;
 };
 } // state_machine
 #endif //STATE_H

@@ -20,3 +20,7 @@ add_test(
     NAME ${This}
     COMMAND ${This}
 )
+
+add_custom_target(copy-runtime-files-test ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${IntentRecognizer_SOURCE_DIR}/data ${CMAKE_CURRENT_BINARY_DIR}/data
+    DEPENDS ${MY_TARGET})

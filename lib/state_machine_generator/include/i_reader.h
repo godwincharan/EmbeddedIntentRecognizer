@@ -15,7 +15,7 @@ public:
     virtual ~IReader(){}
 
     virtual bool OpenFile(const std::string &file_name) noexcept = 0;
-    virtual StateManager::Ptr GetStateManager() noexcept = 0;
+    virtual StateManager::Ptr GetStateManager() const noexcept = 0;
 };
 } // state_machine
 #endif //I_READER_H

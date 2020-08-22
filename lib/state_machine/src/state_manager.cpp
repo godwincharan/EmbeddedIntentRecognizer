@@ -54,19 +54,27 @@ State::SPtr StateManager::GetState(const State::SPtr state) const noexcept
     return nullptr;   
 }
 
-bool StateManager::AddState(const std::string& state_str) noexcept
+bool StateManager::AddState(const std::string& state_str, bool is_final /* = false */) noexcept
 {
     if ( state_str.empty())
     {
         return false;
     }
 
-    auto new_state{std::make_shared<State>(state_str)};
+    State::SPtr new_state{nullptr};
+    if (is_final)
+    {
+        new_state = std::make_shared<FinalState>(state_str);
+    }
+    else
+    {
+        new_state = std::make_shared<State>(state_str);
+    }
     if ( HasState(new_state) )
     {
         return false;
     }
-        
+
     all_states_.emplace(new_state);
     return true;
 }

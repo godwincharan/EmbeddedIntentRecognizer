@@ -24,24 +24,35 @@ const std::string StateMachineFactory::GetExtension(const std::string &file_name
 
 IReader::Ptr StateMachineFactory::CreateReaderFor(const std::string& file_name)
 {
+    IReader::Ptr reader{nullptr};
     const std::string &extension{GetExtension(file_name)};
     if(std::string(".csv") == extension)
     {
-        return std::make_shared<CsvStateMachineReader>();
+        reader = std::make_shared<CsvStateMachineReader>();
     }
     else if(std::string(".xml") == extension )
     {
-        return std::make_shared<XmlStateMachineReader>();
+        reader = std::make_shared<XmlStateMachineReader>();
     }
     else if(std::string(".json") == extension )
     {
-        return std::make_shared<JsonStateMachineReader>();
+        reader = std::make_shared<JsonStateMachineReader>();
+    }
+
+    if ( reader && reader->OpenFile(file_name))
+    {
+        return reader;
     }
     return nullptr;
 }
 
 StateManager::Ptr StateMachineFactory::CreateStateManagerFor(const std::string& file_name)
 {
-    return CreateReaderFor(file_name)->GetStateManager();
+    IReader::Ptr reader{CreateReaderFor(file_name)};
+    if ( reader)
+    {
+        return reader->GetStateManager();
+    }
+    return nullptr;
 }
 } // state_machine

@@ -23,7 +23,7 @@ public:
     State::SPtr GetState(const std::string& state_str) const noexcept;
     State::SPtr GetState(const State::SPtr state) const noexcept;
 
-    bool AddState(const std::string& state_str) noexcept;
+    bool AddState(const std::string& state_str, bool is_final = false) noexcept;
 private:
     const std::shared_ptr<State> initial_state_{std::make_shared<InitialState>()};
     std::shared_ptr<State> current_state_{initial_state_};
