@@ -1,0 +1,30 @@
+@startuml
+hide empty description
+state WeatherIntent
+
+state "WeatherIntent" as WeatherIntent {
+  state what
+  state is
+  state the
+  state weather
+  state like
+  state today
+  state in
+  state Paris
+  state "New York" as NewYork
+  state "Intent: Get Weather" as IntentGetWeather
+
+  what --> is
+  is --> the
+  the --> weather
+  weather --> like
+  like --> today
+  like --> in
+  in --> Paris
+  in --> NewYork
+  Paris --> today
+  NewYork --> today
+  today --> IntentGetWeather
+}
+
+@enduml
