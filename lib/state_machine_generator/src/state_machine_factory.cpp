@@ -1,4 +1,7 @@
 #include "state_machine_factory.h"
+#include "csv_state_machine_reader.h"
+#include "xml_state_machine_reader.h"
+#include "json_state_machine_reader.h"
 
 namespace state_machine
 {
@@ -19,13 +22,26 @@ const std::string StateMachineFactory::GetExtension(const std::string &file_name
     return extension;
 }
 
-StateManager::Ptr StateMachineFactory::CreateStateManagerFor(const std::string& file_name)
+IReader::Ptr StateMachineFactory::CreateReaderFor(const std::string& file_name)
 {
     const std::string &extension{GetExtension(file_name)};
     if(std::string(".csv") == extension)
     {
-        return std::make_shared<StateManager>();
+        return std::make_shared<CsvStateMachineReader>();
+    }
+    else if(std::string(".xml") == extension )
+    {
+        return std::make_shared<XmlStateMachineReader>();
+    }
+    else if(std::string(".json") == extension )
+    {
+        return std::make_shared<JsonStateMachineReader>();
     }
     return nullptr;
+}
+
+StateManager::Ptr StateMachineFactory::CreateStateManagerFor(const std::string& file_name)
+{
+    return CreateReaderFor(file_name)->GetStateManager();
 }
 } // state_machine
