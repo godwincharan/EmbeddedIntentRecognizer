@@ -6,6 +6,7 @@ include_directories(${IntentRecognizer_SOURCE_DIR}/lib/state_machine/include)
 
 set(Sources
     state_manager_test.cpp
+    state_test.cpp
 )
 add_executable(${This} ${Sources})
 

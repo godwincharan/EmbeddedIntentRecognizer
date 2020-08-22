@@ -10,9 +10,11 @@ include_directories(include)
 
 set(Headers
     include/state_manager.h
+    include/state.h
 )
 set(Sources
     src/state_manager.cpp
+    src/state.cpp
 )
 
 add_library(${This} STATIC ${Sources} ${Headers})
