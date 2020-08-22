@@ -17,12 +17,12 @@ const std::string& State::GetState() const noexcept
     return state_str_;
 }
 
-void State::AddNextState(const State& state) noexcept
+void State::AddNextState(const State::SPtr state) noexcept
 {
     next_states_.emplace(state);
 }
 
-bool State::HasNextState(const State& state) const noexcept
+bool State::HasNextState(const State::SPtr state) const noexcept
 {
     return next_states_.find(state) != next_states_.end();
 }

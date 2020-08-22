@@ -4,7 +4,7 @@
 TEST(StateTest, CreateState)
 {
     using namespace state_machine;
-    auto state{std::make_unique<State>("Initial State")};
+    auto state{std::make_unique<State>("Some State")};
     EXPECT_NE(state, nullptr);
 }
 
@@ -27,29 +27,33 @@ TEST(StateTest, FinalState)
 TEST(StateTest, TestState)
 {
     using namespace state_machine;
-    auto state{std::make_unique<State>("Initial State")};
+    auto state{std::make_unique<State>("Some State")};
     EXPECT_NE(state, nullptr);
-    EXPECT_EQ(state->GetState(), "Initial State");
+    EXPECT_EQ(state->GetState(), "Some State");
 }
 
 TEST(StateTest, TestStateValid)
 {
     using namespace state_machine;
-    auto state{std::make_unique<State>("Initial State")};
+    auto state{std::make_unique<State>("Some State")};
     EXPECT_NE(state, nullptr);
-    EXPECT_EQ(state->GetState(), "Initial State");
+    EXPECT_EQ(state->GetState(), "Some State");
     EXPECT_TRUE(state->IsValid());
 }
 
 TEST(StateTest, NextState)
 {
     using namespace state_machine;
-    auto state{std::make_unique<State>("Initial State")};
+    auto state{std::make_unique<State>("Some State")};
     EXPECT_NE(state, nullptr);
 
-    State next_state{"Next State"};
+    auto next_state{std::make_shared<State>("Next State")};
     state->AddNextState(next_state);
-
     EXPECT_TRUE(state->HasNextState(next_state));
-    EXPECT_FALSE(state->HasNextState(State{"Invalid State"}));
+
+    auto next_state_new_ptr{std::make_shared<State>("Next State")};
+    EXPECT_TRUE(state->HasNextState(next_state_new_ptr));
+
+    auto not_available_next_state{std::make_shared<State>("No Next State")};
+    EXPECT_FALSE(state->HasNextState(not_available_next_state));
 }
