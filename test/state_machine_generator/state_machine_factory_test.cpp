@@ -4,7 +4,8 @@
 TEST(StateManagerTest, CheckStateManagerForCSV)
 {
     using namespace state_machine;
-    EXPECT_EQ(StateMachineFactory::Get().CreateStateManagerFor(".csv"), nullptr);
+    std::string csv_file_name{"data/weather_intent_data.csv"};
+    EXPECT_NE(StateMachineFactory::Get().CreateStateManagerFor(csv_file_name), nullptr);
 }
 
 TEST(StateManagerTest, CheckStateManagerForXML)

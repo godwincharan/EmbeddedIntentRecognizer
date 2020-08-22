@@ -62,8 +62,13 @@ bool InitialState::IsValid() const noexcept
     return true;
 }
 
-FinalState::FinalState(const std::string& intent) noexcept:
-State(intent)
+FinalState::FinalState(const std::string& state_str) noexcept:
+State(state_str)
 {
+}
+
+void FinalState::SetFinalIntent(const std::string& final_intent)
+{
+    final_intent_ = final_intent;
 }
 } // state_machine
