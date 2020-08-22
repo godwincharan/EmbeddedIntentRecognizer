@@ -2,6 +2,7 @@
 #define STATE_MACHINE_FACTORY_H
 
 #include <state_manager.h>
+#include "i_reader.h"
 
 namespace state_machine
 {
@@ -12,6 +13,7 @@ private:
     ~StateMachineFactory() = default;
 
     static const std::string GetExtension(const std::string &file_name);
+    IReader::Ptr CreateReaderFor(const std::string& file_name);
 
 public:
     static StateMachineFactory& Get();
