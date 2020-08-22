@@ -22,9 +22,24 @@ void State::AddNextState(const State::SPtr state) noexcept
     next_states_.emplace(state);
 }
 
-bool State::HasNextState(const State::SPtr state) const noexcept
+State::SPtr State::GetNextState(const std::string& state_str) const noexcept
 {
-    return next_states_.find(state) != next_states_.end();
+    auto it{next_states_.find(state_str)};
+    if ( it != next_states_.end())
+    {
+        return *it;
+    }
+    return nullptr;    
+}
+
+State::SPtr State::GetNextState(const State::SPtr state) const noexcept
+{
+    auto it{next_states_.find(state)};
+    if ( it != next_states_.end())
+    {
+       return *it;
+    }
+    return nullptr;   
 }
 
 bool State::operator< (const State &state) const noexcept

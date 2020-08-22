@@ -12,9 +12,20 @@ public:
     using SPtr = std::shared_ptr<State>;
     struct StateCompare
     {
+        using is_transparent = void;
         bool operator() (const State::SPtr& lhs, const State::SPtr& rhs) const
         {
             return *lhs < *rhs;
+        }
+        
+        bool operator() (const State::SPtr& lhs, std::string rhs) const
+        {
+            return lhs->GetState() < rhs;
+        }
+
+        bool operator() (std::string lhs, const State::SPtr& rhs) const
+        {
+            return lhs < rhs->GetState();
         }
     };
 
@@ -23,7 +34,9 @@ public:
 
     const std::string& GetState() const noexcept;
     void AddNextState(const State::SPtr state) noexcept;
-    bool HasNextState(const State::SPtr state) const noexcept;
+    
+    State::SPtr GetNextState(const std::string& state_str) const noexcept;
+    State::SPtr GetNextState(const State::SPtr state) const noexcept;
 
     bool operator< (const State &state) const noexcept;
 
