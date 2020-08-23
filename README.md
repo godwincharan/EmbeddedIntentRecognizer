@@ -35,7 +35,7 @@ Running the Command line interface.
 
 ```sh
 cd cli/intent_recognizer/
-./IntentRecognizer data/weather_intent_data.csv "what is the weather like today"
+./IntentRecognizer data/state_machine_decription.csv "what is the weather like today"
 ```
 
 Running the google test (inside the build folder)

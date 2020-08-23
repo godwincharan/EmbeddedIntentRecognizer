@@ -1,0 +1,20 @@
+@startuml
+hide empty description
+state FactIntent
+
+state "FactIntent" as FactIntent {
+  state tell
+  state me
+  state an
+  state interesting
+  state fact
+  state "Intent: Get Fact" as IntentGetFact
+
+  tell --> me
+  me --> an
+  an --> interesting
+  interesting --> fact
+  fact  --> IntentGetFact
+}
+
+@enduml

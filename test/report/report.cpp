@@ -5,7 +5,7 @@
 TEST(Report, CheckWrongSentence)
 {
     using namespace state_machine;
-    std::string csv_file_name{"/Users/Charan/Documents/MyDev/EmbeddedIntentRecognizer/data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto find_in_state_managers = [&state_managers](const std::string& sentence)
