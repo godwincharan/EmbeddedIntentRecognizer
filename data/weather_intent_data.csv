@@ -8,7 +8,7 @@ Paris,today
 New,York
 York,today
 today > Intent: Get Weather
-
+-
 *am,I
 I,free
 free,at
@@ -16,13 +16,13 @@ at,13:00
 13:00,PM
 PM,tomorrow
 tomorrow > Intent: Check calendar
-
+-
 *tell,me
 me,an
 an,interesting
 interesting,fact
 fact > Intent: Get Fact
-
+-
 *do,I
 I,have
 have,an
@@ -32,10 +32,11 @@ at,13:00
 13:00,PM
 PM,tomorrow
 tomorrow > Intent: Check calendar
-
+-
 *will,it
 it,rain
 rain,tomorrow
 tomorrow,in
 in,Paris
-Paris > Intent: Check calendar
+Paris > Intent: Get Weather
+-
