@@ -64,6 +64,6 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	std::cout << "Final Intent :" << final_state->GetFinalIntent() <<std::endl;
+	std::cout << final_state->GetFinalIntent() <<std::endl;
 	return 0;
 }
