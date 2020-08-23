@@ -18,7 +18,7 @@ private:
 public:
     static StateMachineFactory& Get();
     
-    StateManager::Ptr CreateStateManagerFor(const std::string& file_name);
+    std::vector<StateManager::Ptr> CreateStateManagersFor(const std::string& file_name);
 };
 } // state_machine
 #endif //STATE_MACHINE_FACTORY_H

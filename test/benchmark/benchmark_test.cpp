@@ -17,7 +17,7 @@ public:
         {
             using namespace state_machine;
             std::string csv_file_name{"data/weather_intent_data.csv"};
-            auto state_manager = StateMachineFactory::Get().CreateStateManagerFor(csv_file_name);
+            auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
             benchmark::ClobberMemory();
             state.counters["count"] = 1;
             state.counters["Rate"] = ::benchmark::Counter(1,benchmark::Counter::kIsRate);

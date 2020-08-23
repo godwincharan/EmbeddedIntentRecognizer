@@ -35,8 +35,9 @@ int main(int argc, char **argv)
     }
 
     using namespace state_machine;
-    auto state_manager = StateMachineFactory::Get().CreateStateManagerFor(input_description_path);
-	auto run_lambda=[&state_manager](const std::string& sentence ){
+    auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(input_description_path);
+    
+    auto get_final_state = [](const StateManager::Ptr& state_manager, const std::string& sentence ){
         auto current_state =  state_manager->GetCurrentState();
         auto tokens = utils::GetTokens(sentence, ' ');
         for(auto token: tokens)
@@ -50,14 +51,27 @@ int main(int argc, char **argv)
         return current_state;
     };
 
-	auto result_state = run_lambda(input_sentence);
+    State::SPtr result_state{nullptr};
+    FinalState::SPtr final_state{nullptr};
+    for(auto& state_manager: state_managers)
+    {
+        result_state = get_final_state(state_manager, input_sentence);
+        if ( result_state)
+        {
+            final_state = std::dynamic_pointer_cast<FinalState>(result_state);
+            if ( final_state != nullptr)
+            {
+                break;
+            }
+        }
+    }
+
 	if ( result_state == nullptr)
 	{
 		std::cout << "Could not find the Intent for the sentence." <<std::endl;
 		return 1;
 	}
 
-    auto final_state = std::dynamic_pointer_cast<FinalState>(result_state);
 	if ( final_state == nullptr)
 	{
 		std::cout << "Could not find the Intent. Probably the sentense is incomplete." <<std::endl;

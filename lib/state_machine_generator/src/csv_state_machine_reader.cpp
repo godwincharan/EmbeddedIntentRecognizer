@@ -21,7 +21,7 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
     }
     std::ifstream csv_state_file{file_name};
     
-    state_manager_ = std::make_shared<StateManager>();
+    auto state_manager{std::make_shared<StateManager>()};
     using StateMap = std::map<std::string,std::vector<std::string>>;
     StateMap intermediate_state_map;
     StateMap final_state_map;
@@ -38,7 +38,7 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
                 {
                     auto main_state{tokens[0]};
                     auto new_state = std::make_shared<FinalState>(main_state);
-                    state_manager_->AddState(new_state);
+                    state_manager->AddState(new_state);
                     tokens.erase(tokens.begin());
                     final_state_map[main_state] = tokens;
                 } 
@@ -50,7 +50,7 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
                 {
                     auto main_state{tokens[0]};
                     auto new_state = std::make_shared<BeginState>(main_state);
-                    state_manager_->AddState(new_state);
+                    state_manager->AddState(new_state);
                     tokens.erase(tokens.begin());
                     intermediate_state_map[main_state] = tokens;
                 } 
@@ -61,10 +61,11 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
                 if ( tokens.size())
                 {
                     auto main_state{tokens[0]};
-                    auto new_state = std::make_shared<State>(main_state);
-                    state_manager_->AddState(new_state);
                     tokens.erase(tokens.begin());
-                    intermediate_state_map[main_state] = tokens;
+                    auto& token_vector = intermediate_state_map[main_state];;
+                    auto new_state = std::make_shared<State>(main_state);
+                    state_manager->AddState(new_state);
+                    token_vector.insert(token_vector.begin(), tokens.begin(), tokens.end());
                 } 
             }
         }
@@ -72,12 +73,12 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
 
     for(const auto& value_pair: intermediate_state_map)
     {
-        auto main_state_ptr = state_manager_->GetState(value_pair.first);
+        auto main_state_ptr = state_manager->GetState(value_pair.first);
         if (main_state_ptr)
         {
             for(const auto& state: value_pair.second )
             {
-                auto state_ptr = state_manager_->GetState(state);
+                auto state_ptr = state_manager->GetState(state);
                 if (state_ptr)
                 {
                     main_state_ptr->AddNextState(state_ptr);
@@ -90,7 +91,7 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
     {
         if ( value_pair.second.size() == 1 )
         {
-            auto state_ptr = state_manager_->GetState(value_pair.first);
+            auto state_ptr = state_manager->GetState(value_pair.first);
             if (state_ptr)
             {
                 auto final_state_ptr = std::dynamic_pointer_cast<FinalState>(state_ptr);
@@ -102,11 +103,12 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
         }
     }
     csv_state_file.close();
+    state_managers_.push_back(state_manager);
     return true;
 }
 
-StateManager::Ptr CsvStateMachineReader::GetStateManager() const noexcept
+std::vector<StateManager::Ptr> CsvStateMachineReader::GetStateManagers() const noexcept
 {
-    return state_manager_;
+    return state_managers_;
 }
 } // state_machine

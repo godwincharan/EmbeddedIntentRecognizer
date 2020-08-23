@@ -18,8 +18,8 @@ bool JsonStateMachineReader::OpenFile(const std::string& file_name) noexcept
     return false;
 }
 
-StateManager::Ptr JsonStateMachineReader::GetStateManager() const noexcept
+std::vector<StateManager::Ptr> JsonStateMachineReader::GetStateManagers() const noexcept
 {
-    return nullptr;
+    return std::vector<StateManager::Ptr>{};
 }
 } // state_machine

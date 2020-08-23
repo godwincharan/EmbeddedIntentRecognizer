@@ -62,6 +62,7 @@ public:
 class FinalState final : public State
 {
 public: 
+    using SPtr = std::shared_ptr<FinalState>;
     FinalState(const std::string& state_str) noexcept;
     void SetFinalIntent(const std::string& final_intent) noexcept;
     const std::string GetFinalIntent() const noexcept;

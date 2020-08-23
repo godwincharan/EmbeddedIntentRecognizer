@@ -13,7 +13,7 @@ public:
     ~XmlStateMachineReader();
 
     bool OpenFile(const std::string& file_name) noexcept override;
-    StateManager::Ptr GetStateManager() const noexcept override;
+    std::vector<StateManager::Ptr> GetStateManagers() const noexcept override;
 };
 } // state_machine
 #endif //XML_STATE_MACHINE_READER_H
