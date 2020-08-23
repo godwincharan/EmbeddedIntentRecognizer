@@ -46,13 +46,13 @@ IReader::Ptr StateMachineFactory::CreateReaderFor(const std::string& file_name)
     return nullptr;
 }
 
-StateManager::Ptr StateMachineFactory::CreateStateManagerFor(const std::string& file_name)
+std::vector<StateManager::Ptr> StateMachineFactory::CreateStateManagersFor(const std::string& file_name)
 {
     IReader::Ptr reader{CreateReaderFor(file_name)};
     if ( reader)
     {
-        return reader->GetStateManager();
+        return reader->GetStateManagers();
     }
-    return nullptr;
+    return std::vector<StateManager::Ptr>{};
 }
 } // state_machine

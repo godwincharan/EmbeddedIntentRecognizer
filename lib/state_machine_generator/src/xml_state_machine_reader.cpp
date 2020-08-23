@@ -18,8 +18,8 @@ bool XmlStateMachineReader::OpenFile(const std::string& file_name) noexcept
     return false;
 }
 
-StateManager::Ptr XmlStateMachineReader::GetStateManager() const noexcept
+std::vector<StateManager::Ptr> XmlStateMachineReader::GetStateManagers() const noexcept
 {
-    return nullptr;
+    return std::vector<StateManager::Ptr>{};
 }
 } // state_machine
