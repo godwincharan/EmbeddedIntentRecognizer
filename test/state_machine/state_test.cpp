@@ -10,6 +10,14 @@ TEST(StateTest, InitialState)
     EXPECT_TRUE(state->IsValid());
 }
 
+TEST(StateTest, BeginState)
+{
+    using namespace state_machine;
+    auto state{std::make_unique<BeginState>("Begin State")};
+    EXPECT_NE(state, nullptr);
+    EXPECT_TRUE(state->IsValid());
+}
+
 TEST(StateTest, FinalState)
 {
     using namespace state_machine;

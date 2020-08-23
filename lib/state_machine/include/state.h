@@ -53,11 +53,18 @@ public:
     bool IsValid() const noexcept override;
 };
 
+class BeginState final : public State
+{
+public: 
+    BeginState(const std::string& state_str) noexcept;
+};
+
 class FinalState final : public State
 {
 public: 
     FinalState(const std::string& state_str) noexcept;
-    void SetFinalIntent(const std::string& final_intent);
+    void SetFinalIntent(const std::string& final_intent) noexcept;
+    const std::string GetFinalIntent() const noexcept;
 private:
     std::string final_intent_;
 };

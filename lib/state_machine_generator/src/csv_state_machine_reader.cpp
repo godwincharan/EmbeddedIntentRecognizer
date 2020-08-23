@@ -1,50 +1,16 @@
 #include "csv_state_machine_reader.h"
 #include <fstream>
 #include <map>
-#include <sstream>
+#include <string_utils.h>
 
 namespace state_machine
 {
-namespace
-{
-static inline void ltrim(std::string &s) {
-    s.erase(s.begin(), std::find_if(s.begin(), s.end(), [](int ch) {
-        return !std::isspace(ch);
-    }));
-}
-
-static inline void rtrim(std::string &s) {
-    s.erase(std::find_if(s.rbegin(), s.rend(), [](int ch) {
-        return !std::isspace(ch);
-    }).base(), s.end());
-}
-
-// trim from both ends (in place)
-static inline void trim(std::string &s) {
-    ltrim(s);
-    rtrim(s);
-}
-    
-}
 CsvStateMachineReader::CsvStateMachineReader() noexcept
 {
 }
 
 CsvStateMachineReader::~CsvStateMachineReader()
 {
-}
-
-const std::vector<std::string> CsvStateMachineReader::GetTokens(const std::string& state_line, const char& delim) noexcept
-{
-    std::vector<std::string> tokens;
-    std::stringstream state_line_stream(state_line); 
-    std::string token; 
-    while(getline(state_line_stream, token, delim)) 
-    {
-        trim(token);
-        tokens.push_back(token); 
-    }
-    return tokens;
 }
 
 bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
@@ -67,22 +33,36 @@ bool CsvStateMachineReader::OpenFile(const std::string& file_name) noexcept
         {
             if ( state_line.find(">") != std::string::npos)
             {
-                auto tokens = GetTokens(state_line, '>');
+                auto tokens = utils::GetTokens(state_line, '>');
                 if ( tokens.size())
                 {
                     auto main_state{tokens[0]};
-                    state_manager_->AddState(main_state,true);
+                    auto new_state = std::make_shared<FinalState>(main_state);
+                    state_manager_->AddState(new_state);
                     tokens.erase(tokens.begin());
                     final_state_map[main_state] = tokens;
                 } 
             }
-            else
+            else if ( state_line.find("*") != std::string::npos)
             {
-                auto tokens = GetTokens(state_line, ',');
+                auto tokens = utils::GetTokens(state_line.substr(state_line.find("*")+1), ',');
                 if ( tokens.size())
                 {
                     auto main_state{tokens[0]};
-                    state_manager_->AddState(main_state,false);
+                    auto new_state = std::make_shared<BeginState>(main_state);
+                    state_manager_->AddState(new_state);
+                    tokens.erase(tokens.begin());
+                    intermediate_state_map[main_state] = tokens;
+                } 
+            }
+            else
+            {
+                auto tokens = utils::GetTokens(state_line, ',');
+                if ( tokens.size())
+                {
+                    auto main_state{tokens[0]};
+                    auto new_state = std::make_shared<State>(main_state);
+                    state_manager_->AddState(new_state);
                     tokens.erase(tokens.begin());
                     intermediate_state_map[main_state] = tokens;
                 } 
