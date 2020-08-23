@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON) 
 
 include_directories(${IntentRecognizer_SOURCE_DIR}/lib/state_machine/include)
+include_directories(${IntentRecognizer_SOURCE_DIR}/lib/utils/include)
 include_directories(include)
 
 set(Headers

@@ -1,4 +1,4 @@
-what,is
+*what,is
 is,the
 the,weather
 weather,like
@@ -6,4 +6,4 @@ like,today,in
 in,Paris,New York
 Paris,today
 New York,today
-today > Intent
+today > Intent: Get Weather
