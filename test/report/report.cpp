@@ -69,4 +69,10 @@ TEST(Report, CheckWrongSentence)
 
     std::string sentence10{"do I have an appointment at 13:00 PM tomorrow"};
     EXPECT_EQ(find_in_state_managers(sentence10), "Intent: Check calendar");
+
+    std::string sentence11{"am I have an appointment at 13:00 PM tomorrow"};
+    EXPECT_EQ(find_in_state_managers(sentence11), "");
+
+    std::string sentence12{"will it rain tomorrow in Paris"};
+    EXPECT_EQ(find_in_state_managers(sentence12), "Intent: Get Weather");
 }
