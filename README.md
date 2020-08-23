@@ -31,6 +31,13 @@ cmake .. -G "Unix Makefiles"
 cmake --build .
 ```
 
+Running the Command line interface.
+
+```sh
+cd cli/intent_recognizer/
+./IntentRecognizer data/weather_intent_data.csv "what is the weather like today"
+```
+
 Running the google test (inside the build folder)
 
 ```sh
@@ -42,4 +49,11 @@ Running the specific google test (inside the build folder)
 ```sh
 cd test/state_machine
 ./StateMachineTests
+```
+
+or
+
+```sh
+cd test/state_machine_generator
+./StateMachineGeneratorTests
 ```
