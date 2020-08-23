@@ -15,20 +15,22 @@ TEST(StateManagerTest, CheckInitialState)
     EXPECT_TRUE(state_manager->GetCurrentState()->IsValid());
 }
 
-TEST(StateManagerTest, AddStateStateEmpty)
+TEST(StateManagerTest, AddStateEmpty)
 {
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
     
-    EXPECT_FALSE(state_manager->AddState(""));
+    State::SPtr state = std::make_shared<State>("");
+    EXPECT_FALSE(state_manager->AddState(state));
 }
 
-TEST(StateManagerTest, AddStateState)
+TEST(StateManagerTest, AddStateValid)
 {
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
     
-    EXPECT_TRUE(state_manager->AddState("State"));
+    State::SPtr state = std::make_shared<State>("State");
+    EXPECT_TRUE(state_manager->AddState(state));
 }
 
 TEST(StateManagerTest, AddStateSame)
@@ -36,8 +38,10 @@ TEST(StateManagerTest, AddStateSame)
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
     
-    EXPECT_TRUE(state_manager->AddState("State"));
-    EXPECT_FALSE(state_manager->AddState("State"));
+    State::SPtr state1 = std::make_shared<State>("State");
+    EXPECT_TRUE(state_manager->AddState(state1));
+    State::SPtr state2 = std::make_shared<State>("State");
+    EXPECT_FALSE(state_manager->AddState(state2));
 }
 
 TEST(StateManagerTest, CheckAddStateString)
@@ -45,7 +49,8 @@ TEST(StateManagerTest, CheckAddStateString)
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
     
-    EXPECT_TRUE(state_manager->AddState("State"));
+    State::SPtr state = std::make_shared<State>("State");
+    EXPECT_TRUE(state_manager->AddState(state));
     EXPECT_TRUE(state_manager->HasState(std::string("State")));
 }
 
@@ -54,9 +59,11 @@ TEST(StateManagerTest, CheckAddStatePointer)
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
     
-    EXPECT_TRUE(state_manager->AddState("State"));
-    auto state{std::make_shared<State>("State")};
-    EXPECT_TRUE(state_manager->HasState(state));
+    State::SPtr state = std::make_shared<State>("State");
+    EXPECT_TRUE(state_manager->AddState(state));
+
+    auto check_state{std::make_shared<State>("State")};
+    EXPECT_TRUE(state_manager->HasState(check_state));
 }
 
 TEST(StateManagerTest, CheckNoAddedStateString)
@@ -80,7 +87,8 @@ TEST(StateManagerTest, GetAddedStateString)
 {
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
-    EXPECT_TRUE(state_manager->AddState("State"));
+    State::SPtr state = std::make_shared<State>("State");
+    EXPECT_TRUE(state_manager->AddState(state));
 
     EXPECT_TRUE(state_manager->GetState(std::string("State")) != nullptr);
 }
@@ -89,10 +97,11 @@ TEST(StateManagerTest, GetAddedStatePointer)
 {
     using namespace state_machine;
     auto state_manager{std::make_unique<StateManager>()};
-    EXPECT_TRUE(state_manager->AddState("State"));
-
     auto state{std::make_shared<State>("State")};
-    EXPECT_TRUE(state_manager->GetState(state) != nullptr);
+    EXPECT_TRUE(state_manager->AddState(state));
+
+    auto check_state{std::make_shared<State>("State")};
+    EXPECT_TRUE(state_manager->GetState(check_state) != nullptr);
 }
 
 TEST(StateManagerTest, GetNoAddedStateString)

@@ -62,13 +62,24 @@ bool InitialState::IsValid() const noexcept
     return true;
 }
 
+BeginState::BeginState(const std::string& state_str) noexcept:
+State(state_str)
+{
+
+}
+
 FinalState::FinalState(const std::string& state_str) noexcept:
 State(state_str)
 {
 }
 
-void FinalState::SetFinalIntent(const std::string& final_intent)
+void FinalState::SetFinalIntent(const std::string& final_intent) noexcept
 {
     final_intent_ = final_intent;
+}
+
+const std::string FinalState::GetFinalIntent() const noexcept
+{
+    return final_intent_;
 }
 } // state_machine
