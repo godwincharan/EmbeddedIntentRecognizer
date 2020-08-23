@@ -3,26 +3,26 @@
 #include <iostream>
 #include <string_utils.h>
 
-TEST(StateManagerTest, CheckStateManagerForCSV)
+TEST(StateMachineGeneratorTest, CheckStateManagerForCSV)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
     EXPECT_NE(StateMachineFactory::Get().CreateStateManagerFor(csv_file_name), nullptr);
 }
 
-TEST(StateManagerTest, CheckStateManagerForXML)
+TEST(StateMachineGeneratorTest, CheckStateManagerForXML)
 {
     using namespace state_machine;
     EXPECT_EQ(StateMachineFactory::Get().CreateStateManagerFor(".xml"), nullptr);
 }
 
-TEST(StateManagerTest, CheckStateManagerForJson)
+TEST(StateMachineGeneratorTest, CheckStateManagerForJson)
 {
     using namespace state_machine;
     EXPECT_EQ(StateMachineFactory::Get().CreateStateManagerFor(".json"), nullptr);
 }
 
-TEST(StateManagerTest, CheckWrongSentence)
+TEST(StateMachineGeneratorTest, CheckWrongSentence)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
@@ -47,7 +47,7 @@ TEST(StateManagerTest, CheckWrongSentence)
     EXPECT_EQ(result_state, nullptr);
 }
 
-TEST(StateManagerTest, IncompleteSentence_Begin)
+TEST(StateMachineGeneratorTest, IncompleteSentence_Begin)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
@@ -72,7 +72,7 @@ TEST(StateManagerTest, IncompleteSentence_Begin)
     EXPECT_EQ(result_state, nullptr);
 }
 
-TEST(StateManagerTest, IncompleteSentence_End)
+TEST(StateMachineGeneratorTest, IncompleteSentence_End)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
@@ -99,7 +99,7 @@ TEST(StateManagerTest, IncompleteSentence_End)
     EXPECT_EQ(final_state, nullptr);
 }
 
-TEST(StateManagerTest, IncompleteSentence_JustFinalWord)
+TEST(StateMachineGeneratorTest, IncompleteSentence_JustFinalWord)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
@@ -124,7 +124,7 @@ TEST(StateManagerTest, IncompleteSentence_JustFinalWord)
     EXPECT_EQ(result_state, nullptr);
 }
 
-TEST(StateManagerTest, CompleteSentence_1)
+TEST(StateMachineGeneratorTest, CompleteSentence_1)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
@@ -152,7 +152,7 @@ TEST(StateManagerTest, CompleteSentence_1)
     EXPECT_EQ(final_state->GetFinalIntent(), "Intent: Get Weather");
 }
 
-TEST(StateManagerTest, CompleteSentence_2)
+TEST(StateMachineGeneratorTest, CompleteSentence_2)
 {
     using namespace state_machine;
     std::string csv_file_name{"data/weather_intent_data.csv"};
