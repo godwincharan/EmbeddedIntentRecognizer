@@ -3,7 +3,22 @@ is,the
 the,weather
 weather,like
 like,today,in
-in,Paris,New York
+in,Paris,New
 Paris,today
-New York,today
+New,York
+York,today
 today > Intent: Get Weather
+
+*am,I
+I,free
+free,at
+at,13:00
+13:00,PM
+PM,tomorrow
+tomorrow > Intent: Check calendar
+
+*tell,me
+me,an
+an,interesting
+interesting,fact
+fact > Intent: Get Fact
