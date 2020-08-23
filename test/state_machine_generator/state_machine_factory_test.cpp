@@ -5,7 +5,7 @@
 TEST(StateMachineGeneratorTest, CheckStateManagerForCSV)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     EXPECT_NE(StateMachineFactory::Get().CreateStateManagersFor(csv_file_name).size(), 0);
 }
 
@@ -24,7 +24,7 @@ TEST(StateMachineGeneratorTest, CheckStateManagerForJson)
 TEST(StateMachineGeneratorTest, CheckWrongSentence)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto run_lambda=[](const StateManager::Ptr& state_manager, const std::string& sentence ){
@@ -57,7 +57,7 @@ TEST(StateMachineGeneratorTest, CheckWrongSentence)
 TEST(StateMachineGeneratorTest, IncompleteSentence_Begin)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto run_lambda=[](const StateManager::Ptr& state_manager, const std::string& sentence ){
@@ -91,7 +91,7 @@ TEST(StateMachineGeneratorTest, IncompleteSentence_Begin)
 TEST(StateMachineGeneratorTest, IncompleteSentence_End)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto run_lambda=[](const StateManager::Ptr& state_manager, const std::string& sentence ){
@@ -129,7 +129,7 @@ TEST(StateMachineGeneratorTest, IncompleteSentence_End)
 TEST(StateMachineGeneratorTest, IncompleteSentence_JustFinalWord)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto run_lambda=[](const StateManager::Ptr& state_manager, const std::string& sentence ){
@@ -162,7 +162,7 @@ TEST(StateMachineGeneratorTest, IncompleteSentence_JustFinalWord)
 TEST(StateMachineGeneratorTest, CompleteSentence_1)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto run_lambda=[](const StateManager::Ptr& state_manager, const std::string& sentence ){
@@ -200,7 +200,7 @@ TEST(StateMachineGeneratorTest, CompleteSentence_1)
 TEST(StateMachineGeneratorTest, CompleteSentence_2)
 {
     using namespace state_machine;
-    std::string csv_file_name{"data/weather_intent_data.csv"};
+    std::string csv_file_name{"data/state_machine_decription.csv"};
     auto state_managers = StateMachineFactory::Get().CreateStateManagersFor(csv_file_name);
     
     auto run_lambda=[](const StateManager::Ptr& state_manager,const std::string& sentence ){

@@ -1,0 +1,28 @@
+@startuml
+hide empty description
+state CalenderIntent
+
+state "CalenderIntent" as CalenderIntent {
+  state do
+  state I
+  state have
+  state an
+  state appointment
+  state at
+  state "13:00" as time
+  state PM
+  state tomorrow
+  state "Intent: Check Calendar" as IntentCheckCalendar
+
+  do --> I
+  I --> have
+  have --> an
+  an --> appointment
+  appointment --> at
+  at --> time
+  time --> PM
+  PM --> tomorrow
+  tomorrow  --> IntentCheckCalendar
+}
+
+@enduml
