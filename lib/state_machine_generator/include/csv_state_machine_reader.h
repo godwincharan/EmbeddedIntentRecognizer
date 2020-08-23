@@ -13,9 +13,9 @@ public:
     ~CsvStateMachineReader();
 
     bool OpenFile(const std::string& file_name) noexcept override;
-    StateManager::Ptr GetStateManager() const noexcept override;
+    std::vector<StateManager::Ptr> GetStateManagers() const noexcept override;
 private:
-    StateManager::Ptr state_manager_{nullptr};
+    std::vector<StateManager::Ptr> state_managers_;
 };
 } // state_machine
 #endif //CSV_STATE_MACHINE_READER_H
